@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app: firstapp
   template:
-    matadata:
+    metadata:
       name: firstapp
       labels:
         app: firstapp
