@@ -41,6 +41,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps: 
+    - uses: actions/checkout@v3
     # Connect to AKS
     - uses: azure/aks-set-context@v1
       with:
