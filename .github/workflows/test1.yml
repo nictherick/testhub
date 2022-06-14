@@ -53,6 +53,6 @@ jobs:
     - uses: azure/k8s-deploy@v1
       with:
         manifests: |
-          manifests/replicas.yml
-          manifests/service.yml
+          ../../manifests/replicas.yml
+          ../../manifests/service.yml
         namespace: ${{ env.NAMESPACE }}
