@@ -1,7 +1,7 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
-  name: first-deployment
+  name: rs-one
 spec:
   replicas: 3
   selector:
