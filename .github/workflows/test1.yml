@@ -2,6 +2,10 @@
 
 name: CI
 
+env:
+  CLUSTER_NAME: aksdemoq
+  CLUSTER_RESOURCE_GROUP: aks-rg1
+  NAMESPACE: kube-test
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -34,3 +38,21 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+  deploy:
+    runs-on: ubuntu-latest:
+    steps: 
+    # Connect to AKS
+    - uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS}}'
+        cluster-name: '${{ env.CLUSTER_NAME}}'
+        ressource-group: '${{ env.CLUSTER_RESOURCE_GROUP}}'
+    - run: |
+        kubectl create namespace ${{env.NAMESPACE}} --dry-run=client -o json | kubectl apply -f -
+    #Deploy to AKS
+    - uses: azure/k8s-deploy@v1
+      with:
+        manifests: |
+          kube-manifests/replicas.yml
+          kube-manifests/service.yml
+      
